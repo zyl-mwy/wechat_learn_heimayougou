@@ -9,7 +9,9 @@ Page({
     // 左侧的菜单数据
     leftMenuList:[],
     // 右侧的商品数据
-    rightContent:[]
+    rightContent:[],
+    // 被点击的左侧的菜单
+    currentIndex:0
   },
   // 接口的返回数据
   Cates:[],
@@ -38,7 +40,7 @@ Page({
         leftMenuList,
         rightContent
       })
-      
+
     })
   }
 })
