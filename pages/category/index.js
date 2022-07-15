@@ -11,7 +11,9 @@ Page({
     // 右侧的商品数据
     rightContent:[],
     // 被点击的左侧的菜单
-    currentIndex:0
+    currentIndex:0,
+    // 右侧滚动条距离顶部的距离
+    scrollTop:0
   },
   // 接口的返回数据
   Cates:[],
@@ -82,11 +84,16 @@ Page({
     // 1 获取被点击的标题身上的索引
     // 2 给data中的currentIndex赋值就可以了
     // 3 根据不同的索引渲染右侧的商品内容
+    
     const {index} = e.currentTarget.dataset;
     let rightContent = this.Cates[index].children;
     this.setData({
       currentIndex:index,
-      rightContent
+      rightContent,
+      // 1 重新设置 右侧内容的scroll-view标签的距离顶部的距离 scrollTop:0
+      scrollTop:0
     })
+
+    
   }
 })
