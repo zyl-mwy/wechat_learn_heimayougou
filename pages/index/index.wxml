@@ -1,6 +1,13 @@
-<view>首页
+<!--<view >首页
   <text class="iconfont icon-gouwuchetianjia"></text>
-</view>
+
+</view>-->
+
+<view class="pyg_index">
+<!-- 搜索框 开始-->
+  <SearchInput></SearchInput>
+<!-- 搜索框 结束-->
+</view>>
 
 
 
