@@ -11,7 +11,8 @@ export const request=(params)=>{
 
 
             success:(result)=>{
-                resolve(result);
+                // resolve(result);
+                resolve(result.data.message);
             },
             fail:(err)=>{
                 reject(err);
