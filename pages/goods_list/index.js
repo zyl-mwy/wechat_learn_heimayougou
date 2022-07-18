@@ -69,6 +69,14 @@ Page({
     // 检测上个界面传过来的cid
     this.QueryParams.cid = options.cid;
     this.getGoodsList();
+
+    // wx.showLoading({
+    //   title: '加载中'
+    // })
+
+    // setTimeout(function () {
+    //   wx.hideLoading()
+    // }, 5000)
   },
 
   // 获取商品列表数据
