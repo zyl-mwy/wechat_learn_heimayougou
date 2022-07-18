@@ -1,4 +1,7 @@
 // pages/goods_list/index.js
+import { request } from "../../request/index.js";
+import regeneratorRuntime from '../../lib/runtime/runtime';
+
 Page({
 
   /**
@@ -21,7 +24,16 @@ Page({
         value:"价格",
         isActive:false
       }
-    ]
+    ],
+
+    goodsList:[]
+  },
+  // 接口要的参数
+  QueryParams:{
+    query:"",
+    cid:"",
+    pagenum:1,
+    pagesize:10
   },
 
   /**
@@ -30,6 +42,19 @@ Page({
   onLoad(options) {
     // 检测url传递过来的参数
     console.log(options);
+
+    // 检测上个界面传过来的cid
+    this.QueryParams.cid = options.cid;
+    this.getGoodsList();
+  },
+
+  // 获取商品列表数据
+  async getGoodsList(){
+    const res = await request({url:"/goods/search", data:this.QueryParams});
+    console.log(res);
+    this.setData({
+      goodsList: res.goods
+    })
   },
 
   /**
