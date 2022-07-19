@@ -1,5 +1,7 @@
 // 1 发送请求获取数据
-
+// 2 点击轮播图 预览大图
+  // 1 给轮播图绑定点击事件
+  // 2 调用小程序api previewImage
 
 import {request} from "../../request/index.js"
 import regeneratorRuntime from "../../lib/runtime/runtime"
@@ -12,6 +14,9 @@ Page({
   data: {
     goodsObj: {}
   },
+
+  // 商品对象
+  GoodsInfo: {},
 
   /**
    * 生命周期函数--监听页面加载
@@ -26,6 +31,7 @@ Page({
   // 获取商品信息详情
   async getGoodsDetail(goods_id){
     const goodsObj = await request({url: '/goods/detail', data: {goods_id}});
+    this.GoodsInfo = goodsObj;
     console.log(goodsObj);
     this.setData({
       // goodsObj
@@ -39,6 +45,21 @@ Page({
         goods_introduce: goodsObj.goods_introduce.replace(/\.webp/g, '.jpg'),
         pics: goodsObj.pics
       }
+    })
+  },
+
+  // 点击轮播图 放大预览
+  handlePreviewImage(e){//可以没有参数e
+    console.log("预览");
+    // 1 构造要预览的图片数组
+    const urls = this.GoodsInfo.pics.map(v=>v.pics_mid);
+    // 2 接收传递过来的图片url
+    const current = e.currentTarget.dataset.url;
+    wx.previewImage({
+      // current: urls[0],
+      // urls: urls,
+      current,
+      urls
     })
   },
 
