@@ -12,11 +12,27 @@
       // 1 诱导用户 自己 打开 授权设置界面(wx.openSetting) 当用户取消给与 获取地址权限的时候
       // 2 获取收获地址
     // 4 把获取到的收货地址 存入到 本地存储中
+// 2 页面加载完毕
+  // 0 onLoad onShow
+  // 1 获取本地存储中的地址数据
+  // 2 把数据 设置给data中的一个变量
 
 import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx.js";
 import regeneratorRuntime from '../../lib/runtime/runtime'
 
 Page({
+
+  data:{
+    address:{}
+  },
+  onShow(){
+    // 1 获取缓存中的收获地址信息
+    const address = wx.getStorageSync("address");
+    // 2 给data赋值
+    this.setData({
+      address
+    })
+  },
 
   // // 点击 收获地址
   // handleChooseAddress(){
@@ -66,6 +82,7 @@ Page({
   //   })
   // }
 
+  
   // 点击 收获地址
   async handleChooseAddress(){
     // console.log("干一行 行一行 一行行 行行行");
@@ -111,8 +128,12 @@ Page({
         await openSetting();
       }
       // 4 调用获取收获地址的 api
-      const address = await chooseAddress();
+      // const address = await chooseAddress();
       console.log(address);
+      let address = await chooseAddress();
+      address.all = address.provinceName+address.cityName+address.countyName+address.detailInfo;
+
+      // 5 存入到缓存中
       wx.setStorageSync("address", address);
     }catch(err){
       console.log(err);
