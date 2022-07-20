@@ -54,7 +54,7 @@
 
   </navigator>
 
-  <view class="tool_item btn_cart">
+  <view class="tool_item btn_cart" bindtap="handleCartAdd">
     加入购物车
   </view>
 
