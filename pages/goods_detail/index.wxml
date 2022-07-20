@@ -33,3 +33,9 @@
     <rich-text nodes="{{goodsObj.goods_introduce}}"></rich-text>
   </view>
 </view>
+
+<view class="btm_tool">
+  <view class="tool_item">
+    <view class="iconfont icon-kefu"></view>
+  </view>
+</view>
