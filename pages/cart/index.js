@@ -57,8 +57,12 @@
     // 2 取消 什么都不做
   // 4 直接修改商品对象的数量 num
   // 5 把cart数组 重新设置回 缓存中 和data中 this.setCart
+// 9 点击结算
+  // 1 判断有没有收货地址信息
+  // 2 判断用户有没有选购商品
+  // 3 经过以上的验证 跳转到 支付页面！
 
-import { getSetting, chooseAddress, openSetting, showModal } from "../../utils/asyncWx.js";
+import { getSetting, chooseAddress, openSetting, showModal, showToast } from "../../utils/asyncWx.js";
 import regeneratorRuntime from '../../lib/runtime/runtime'
 
 Page({
@@ -321,5 +325,27 @@ Page({
       this.setCart(cart);
     }
     
+  },
+
+  // 点击 结算
+  async handlePay(){
+    // 1 判断收货地址 购物车商品数量
+    const {address, totalNum} = this.data;
+    if(!address.userName){
+      // wx.showToast({
+      //   title: 'title',
+      // })
+      await showToast({title:"你还没有选择收货地址"});
+      return;
+    }
+    // 2 判断用户有没有选购商品
+    if(totalNum===0){
+      await showToast({title: "您还没有选购商品"});
+      return;
+    }
+    // 3 跳转到 支付页面
+    wx.navigateTo({
+      url: "/pages/pay/index"
+    });
   }
 })
