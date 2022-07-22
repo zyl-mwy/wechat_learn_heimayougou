@@ -286,7 +286,7 @@ Page({
     // 4 把修改后的值 填充回data或者缓存中
     this.setCart(cart);
   },
-
+  // 商品编辑
   async handleItemNumEdit(e){
     
     // 1 获取事件传递过来的参数
