@@ -51,10 +51,14 @@
     // 2 "-" "-1"
   // 2 传递被点击的商品id goods_id
   // 3 获取data中的购物车数组 来获取需要被修改的商品对象
+  // 4 当 购物车的数量 =1 同时 用户 点击 "-"
+    // 弹窗提示(showModal) 询问用户 是否要删除
+    // 1 确定 直接执行删除
+    // 2 取消 什么都不做
   // 4 直接修改商品对象的数量 num
   // 5 把cart数组 重新设置回 缓存中 和data中 this.setCart
 
-import { getSetting, chooseAddress, openSetting } from "../../utils/asyncWx.js";
+import { getSetting, chooseAddress, openSetting, showModal } from "../../utils/asyncWx.js";
 import regeneratorRuntime from '../../lib/runtime/runtime'
 
 Page({
@@ -279,7 +283,8 @@ Page({
     this.setCart(cart);
   },
 
-  handleItemNumEdit(e){
+  async handleItemNumEdit(e){
+    
     // 1 获取事件传递过来的参数
     const { operation, id } = e.currentTarget.dataset;
     console.log(operation, id);
@@ -287,9 +292,34 @@ Page({
     let { cart } = this.data;
     // 3 找到需要修改的商品的索引
     const index = cart.findIndex(v => v.goods_id === id);
-    // 4 找到修改数量
-    cart[index].num += operation;
-    // 5 设置回缓存中和data中
-    this.setCart(cart);
+    // 4 判断是否要执行删除
+    if(cart[index].num===1 && operation===-1){
+      // 4.1 弹窗提示
+      // wx.showModal({
+      //   content: '您是否要删除',
+      //   title: '提示',
+      //   success: (res) => {
+      //     if (res.confirm) {
+      //       console.log("用户点击确定");
+      //       cart.splice(index, 1);
+      //       this.setCart(cart);
+      //     }else if (res.cancel) {
+      //       console.log("用户点击取消");
+
+      //     }
+      //   }
+      // })
+      const res = await showModal({content:"您是否要删除？"});
+      if (res.confirm) {
+        cart.splice(index, 1);
+        this.setCart(cart);
+      }
+    }else{
+      // 4 找到修改数量
+      cart[index].num += operation;
+      // 5 设置回缓存中和data中
+      this.setCart(cart);
+    }
+    
   }
 })

@@ -39,3 +39,26 @@ export const openSetting=()=>{
     });
   })
 }
+
+// promise 形式的 showModal
+export const showModal=({content})=>{
+  return new Promise((resolve,reject)=>{
+    wx.showModal({
+      title: '提示',
+      content: content,
+      success :(res) =>{
+        // if (res.confirm) {
+        //   console.log("用户点击确定");
+        //   cart.splice(index, 1);
+        //   this.setCart(cart);
+        // }else if (res.cancel) {
+        //   console.log("用户点击取消");
+        // }
+        resolve(res);
+      },
+      fail:(err)=>{
+        reject(err);
+      }
+    })
+  })
+}
