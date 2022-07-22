@@ -80,6 +80,8 @@ Page({
     if(index === -1){
       // 不存在 第一次添加
       this.GoodsInfo.num = 1;
+      this.GoodsInfo.checked = true;
+      // 添加到缓存中 之后可以从缓存中获取这些数据
       cart.push(this.GoodsInfo);
     }else{
       // 已经存在购物车数据 执行 num++
