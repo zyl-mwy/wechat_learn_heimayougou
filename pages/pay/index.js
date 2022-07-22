@@ -44,7 +44,23 @@
         totalPrice, totalNum,
         address
       });
+    },
+
+    // 点击支付
+    handleOrderPay(){
+      // 1 判断缓存中有没有token
+      const token = wx.getStorageSync('token');
+      // 2 判断
+      if(!token){
+        wx.navigateTo({
+          url: '/pages/auth/index'
+        });
+
+        return;
+      }
+      console.log("已经存在token");
     }
+
   
   
 
