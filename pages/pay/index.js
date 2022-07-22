@@ -7,6 +7,10 @@
       // 2 企业账号的小程序后台中 必须 给开发者 添加上白名单
         // 1 一个 appid 可以同时绑定多个开发者
         // 2 这些开发者就可以公用这个appid 和 它的开发权限
+  // 3 支付按钮
+    // 1 先判断缓存中有没有token
+    // 2 没有 跳转到授权页面 进行获取token
+    // 3 有token。。。
   
   import { getSetting, chooseAddress, openSetting, showModal, showToast } from "../../utils/asyncWx.js";
   import regeneratorRuntime from '../../lib/runtime/runtime'
